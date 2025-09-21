@@ -41,7 +41,7 @@ final class HandleInertiaRequests extends Middleware
     {
         [$message, $author] = str(Inspiring::quotes()->random())->explode('-'); // @phpstan-ignore-line
 
-        return [ // @phpstan-ignore-line
+        return [
             ...parent::share($request),
             'name' => config('app.name'),
             'quote' => ['message' => mb_trim($message), 'author' => mb_trim($author)], // @phpstan-ignore-line

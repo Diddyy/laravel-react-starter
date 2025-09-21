@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -46,13 +47,13 @@ final class NewPasswordController
         // database. Otherwise we will parse the error and return the response.
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
-            function ($user) use ($request): void {
-                $user->forceFill([ // @phpstan-ignore-line
-                    'password' => Hash::make($request->password), // @phpstan-ignore-line
+            function (User $user) use ($request): void {
+                $user->forceFill([
+                    'password' => Hash::make($request->string('password')->value()),
                     'remember_token' => Str::random(60),
                 ])->save();
 
-                event(new PasswordReset($user)); // @phpstan-ignore-line
+                event(new PasswordReset($user));
             }
         );
 
