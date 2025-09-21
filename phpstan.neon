@@ -9,8 +9,4 @@ parameters:
 
     level: max
 
-#    ignoreErrors:
-#        - '#PHPDoc tag @var#'
-#
-#    excludePaths:
-#        - ./*/*/FileToBeExcluded.php
+    tmpDir: /tmp/phpstan
