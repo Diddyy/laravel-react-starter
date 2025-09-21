@@ -19,12 +19,7 @@ final class VerifyEmailController
             return redirect()->intended(route('dashboard', absolute: false).'?verified=1');
         }
 
-        if ($request->user()->markEmailAsVerified()) { // @phpstan-ignore-line
-            /** @var \Illuminate\Contracts\Auth\MustVerifyEmail $user */
-            $user = $request->user();
-
-            event(new Verified($user));
-        }
+        $request->fulfill();
 
         return redirect()->intended(route('dashboard', absolute: false).'?verified=1');
     }
