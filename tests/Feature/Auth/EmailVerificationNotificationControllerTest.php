@@ -6,8 +6,6 @@ use App\Models\User;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Support\Facades\Notification;
 
-uses(Illuminate\Foundation\Testing\RefreshDatabase::class);
-
 test('verified users are redirected to dashboard when requesting verification notification', function (): void {
     $user = User::factory()->create([
         'email_verified_at' => now(),
