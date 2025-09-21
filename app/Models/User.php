@@ -52,7 +52,7 @@ final class User extends Authenticatable implements MustVerifyEmail
      *
      * @return array<string, string>
      */
-    protected function casts(): array
+    public function casts(): array
     {
         return [
             'email_verified_at' => 'datetime',
