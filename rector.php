@@ -2,20 +2,23 @@
 
 declare(strict_types=1);
 
+use Rector\Caching\ValueObject\Storage\FileCacheStorage;
 use Rector\Config\RectorConfig;
-use Rector\TypeDeclaration\Rector\Property\TypedPropertyFromStrictConstructorRector;
-use Rector\TypeDeclaration\Rector\StmtsAwareInterface\DeclareStrictTypesRector;
+use Rector\Php83\Rector\ClassMethod\AddOverrideAttributeToOverriddenMethodsRector;
 
 return RectorConfig::configure()
+    ->withCache(
+        cacheDirectory: '/tmp/rector',
+        cacheClass: FileCacheStorage::class,
+    )
     ->withPaths([
         __DIR__.'/app',
         __DIR__.'/bootstrap/app.php',
         __DIR__.'/database',
         __DIR__.'/public',
     ])
-    ->withRules([
-        TypedPropertyFromStrictConstructorRector::class,
-        DeclareStrictTypesRector::class,
+    ->withSkip([
+        AddOverrideAttributeToOverriddenMethodsRector::class,
     ])
     ->withPreparedSets(
         deadCode: true,
