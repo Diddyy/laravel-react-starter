@@ -27,6 +27,13 @@ jobs:
           tools: composer:v2
           coverage: xdebug
 
+      - name: Cache Composer Dependencies
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -57,8 +64,6 @@ jobs:
 
       - name: Setup Test Environment
         run: |
-          cp vendor/laravel-labs/starter-kit-browser-tests/phpunit.xml.dist .
-          rm phpunit.xml
           rm -Rf tests/
           cp -rf vendor/laravel-labs/starter-kit-browser-tests/tests/ tests/
 
