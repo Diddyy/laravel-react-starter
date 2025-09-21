@@ -66,4 +66,4 @@ jobs:
       - run: mkdir -p /tmp/phpstan
 
       - name: Tests
-        run: compose test
+        run: composer test
